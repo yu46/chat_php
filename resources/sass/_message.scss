@@ -8,6 +8,14 @@
       font-size: 20px;
       color: #fff;
       padding-bottom: 15px;
+      &:before {
+        font-family: "Font Awesome 5 Free";
+        content: "\f0a8";
+        font-weight: bold;
+        color: #999;
+        padding-right: 25px;
+        cursor: pointer;
+      }
     }
     &__member {
       display: flex;
@@ -52,6 +60,7 @@
       display: flex;
     }
     .input-box {
+      width: 100%;
       display: flex;
       position: relative;
       &__text {
