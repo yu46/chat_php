@@ -14,6 +14,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('groups/index','GroupsController@index');
+Route::get('groups','GroupsController@index');
 
-Route::get('messages/index', 'MessagesController@index');
+Route::get('messages', 'MessagesController@index');
+Route::get('messages/create', 'MessagesController@create');
+Route::post('messages', 'MessagesController@store');
+
+Auth::routes();
+Route::get('user/{id}/edit', 'UserController@edit');
+Route::patch('user/{id}', 'UserController@update');
+
+Route::get('/home', 'HomeController@index')->name('home');

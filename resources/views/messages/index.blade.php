@@ -37,14 +37,18 @@
         </div>
         <p class="message__text">hello!</p>
       </div>
+      @section('main')
+      @show
     </div>
+
     <div class="form">
-      <form action="">
+      <form action="messages" method="POST">
+        @csrf
         <div class="input-box">
-          <input class="input-box__text" type="text">
+          <input class="input-box__text" type="text" name="body">
           <label class="input-box__image" for="message-image">
             <i class="fa fa-image"></i>
-            <input class="input-box__image__file" type="file" id="message-image">
+            <input class="input-box__image__file" type="file" id="message-image" name="image">
           </label>
         </div>
         <input class="submit-btn" type="submit" value="Send">
