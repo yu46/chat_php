@@ -12,17 +12,24 @@
 <body>
   <div class="groups">
     <div class="groups__header">
-      <h1>headder</h1>
+      <div class="groups__header--left">
+        {{$user->name}}
+      </div>
+      <div class="groups__header--right">
+        <a href="{{url('groups/create')}}">
+          <i class="fas fa-edit"></i>
+        </a>
+        <a href="{{ url('user/'.$user->id.'/edit')}}">
+          <i class="fas fa-cog"></i>
+        </a>
+      </div>
     </div>
     <div class="groups__main">
-      <div class="group">
-        <div class="group__title">main</div>
-        <div class="group__message">まだメッセージはありません</div>
-      </div>
-      <div class="group">
-        <div class="group__title">main1</div>
-        <div class="group__message">まだメッセージはありません</div>
-      </div>
+      @if ($user->groups)
+
+      @each ('subviews.groups', $user->groups, 'group')
+
+      @endif
     </div>
   </div>
 </body>

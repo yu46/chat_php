@@ -2,10 +2,26 @@
   color: #fff;
   height: 100vh;
   &__header {
+    display: flex;
     padding: 0 20px;
     height: 100px;
-    line-height: 100px;
     background-color: #263238;
+    line-height: 100px;
+    &--left {
+      font-size: 16px;
+      line-height: 100px;
+    }
+    &--right {
+      margin-right: 20px;
+      margin-left: auto;
+      a {
+        font-size: 20px;
+        color: #fff;
+        .fa-edit {
+          margin-right: 5px;
+        }
+      }
+    }
   }
   &__main {
     color: #333;
@@ -13,6 +29,10 @@
     background-color: #eceff1;
     height: calc(100vh - 100px);
     .group {
+      a {
+        color: inherit;
+      }
+      color: #333;
       padding-bottom: 40px;
       &__title {
         padding-bottom: 5px;
@@ -24,3 +44,85 @@
     }
   }
 }
+
+.chat-group-form {
+  width: 980px;
+  margin: 60px auto;
+  padding: 40px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box;
+  // &__errors {
+  //   margin: 30px 0;
+  //   padding: 20px 40px;
+  //   border: 1px solid #ddd;
+  //   border-radius: 2px;
+  //   text-align: center;
+  // }
+  &__label {
+    display: block;
+    line-height: 50px;
+    font-weight: bold;
+    text-align: right;
+  }
+  &__input {
+    float: left;
+    width: 100%;
+    line-height: 30px;
+    padding: 10px 15px;
+    box-sizing: border-box;
+  }
+  &__action-btn {
+    display: inline-block;
+    padding: 12px 20px;
+    color: #fff;
+    background-color: #38aef0;
+    border: 0;
+  }
+  &__field {
+    margin-top: 30px;
+    &:after {
+      content: "";
+      clear: both;
+      display: block;
+    }
+    &--left {
+      float: left;
+      width: 30%;
+      padding-right: 20px;
+      padding-left: 20px;
+      box-sizing: border-box;
+    }
+    &--right {
+      float: right;
+      width: 70%;
+    }
+  }
+}
+
+// .chat-group-user {
+//   padding: 0 15px;
+//   line-height: 50px;
+//   font-size: 14px;
+//   border-bottom: 1px solid #ddd;
+//   &:after {
+//     content: "";
+//     clear: both;
+//     display: block;
+//   }
+//   &__name {
+//     float: left;
+//   }
+//   &__btn {
+//     float: right;
+//     display: inline-block;
+//     cursor: pointer;
+//     &--add {
+//       color: #38aef0;
+//     }
+//     &--remove {
+//       color: #f05050;
+//     }
+//   }
+// }

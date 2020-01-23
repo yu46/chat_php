@@ -114,3 +114,9 @@ legend {
 * {
   box-sizing: border-box;
 }
+a {
+  text-decoration: none;
+  &:hover {
+    text-decoration: none;
+  }
+}
