@@ -17422,6 +17422,14 @@ legend {
   box-sizing: border-box;
 }
 
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
 .chat-main {
   height: 100vh;
 }
@@ -17429,33 +17437,58 @@ legend {
 .chat-main .chat-header {
   background-color: #263238;
   height: 100px;
-  padding: 35px 40px 0;
+  padding: 0 40px 0;
+  display: -webkit-box;
+  display: flex;
 }
 
-.chat-main .chat-header__title {
+.chat-main .chat-header__left-box__title {
   font-size: 20px;
   color: #fff;
-  padding-bottom: 15px;
+  padding: 35px 0 15px;
 }
 
-.chat-main .chat-header__title:before {
-  font-family: "Font Awesome 5 Free";
-  content: "\F0A8";
-  font-weight: bold;
-  color: #999;
-  padding-right: 25px;
-  cursor: pointer;
-}
-
-.chat-main .chat-header__member {
+.chat-main .chat-header__left-box__member {
   display: -webkit-box;
   display: flex;
   font-size: 12px;
   color: #999;
 }
 
-.chat-main .chat-header__member li {
+.chat-main .chat-header__left-box__member li {
   padding-left: 4px;
+}
+
+.chat-main .chat-header__right-box {
+  display: -webkit-box;
+  display: flex;
+  margin-left: auto;
+}
+
+.chat-main .chat-header__right-box__back-btn {
+  color: #999;
+  padding-right: 25px;
+  cursor: pointer;
+}
+
+.chat-main .chat-header__right-box__back-btn a {
+  display: inline-block;
+  color: #38aef0;
+  height: 40px;
+  line-height: 40px;
+  margin-top: 28px;
+  padding: 0 20px 0;
+  border: 1px solid #38aef0;
+}
+
+.chat-main .chat-header__right-box__edit-btn a {
+  display: inline-block;
+  color: #38aef0;
+  height: 40px;
+  line-height: 40px;
+  margin-top: 28px;
+  padding: 0 20px 0;
+  border: 1px solid #38aef0;
 }
 
 .chat-main .messages {
@@ -17486,7 +17519,7 @@ legend {
   color: #999;
 }
 
-.chat-main .messages .message__text {
+.chat-main .messages .message__bottom__text {
   font-size: 14px;
   color: #434a53;
 }
@@ -17583,7 +17616,12 @@ legend {
 }
 
 .groups__main .group {
+  color: #333;
   padding-bottom: 40px;
+}
+
+.groups__main .group a {
+  color: inherit;
 }
 
 .groups__main .group__title {
@@ -17593,6 +17631,62 @@ legend {
 
 .groups__main .group__message {
   font-size: 11px;
+}
+
+.chat-group-form {
+  width: 980px;
+  margin: 60px auto;
+  padding: 40px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.chat-group-form__label {
+  display: block;
+  line-height: 50px;
+  font-weight: bold;
+  text-align: right;
+}
+
+.chat-group-form__input {
+  float: left;
+  width: 100%;
+  line-height: 30px;
+  padding: 10px 15px;
+  box-sizing: border-box;
+}
+
+.chat-group-form__action-btn {
+  display: inline-block;
+  padding: 12px 20px;
+  color: #fff;
+  background-color: #38aef0;
+  border: 0;
+}
+
+.chat-group-form__field {
+  margin-top: 30px;
+}
+
+.chat-group-form__field:after {
+  content: "";
+  clear: both;
+  display: block;
+}
+
+.chat-group-form__field--left {
+  float: left;
+  width: 30%;
+  padding-right: 20px;
+  padding-left: 20px;
+  box-sizing: border-box;
+}
+
+.chat-group-form__field--right {
+  float: right;
+  width: 70%;
 }
 
 .account-page .account-page__inner {

@@ -6,7 +6,7 @@
       <h2>Edit Account</h2>
       <h5>アカウントの編集</h5>
       <a class="btn" href="{{route('logout')}}">ログアウト</a>
-      <a href="" class="btn">トップページに戻る</a>
+      <a href="{{url('groups')}}" class="btn">トップページに戻る</a>
     </div>
     <div class="account-page__inner--right">
       <form action="{{url('user/'.$user->id)}}}" method="POST">

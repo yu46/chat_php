@@ -9,7 +9,10 @@ use App\User;
 
 class GroupsController extends Controller
 {
-    public function index(){
+    public function index()
+    {
+        $group = Auth::user()->groups()->latest()->first();
+      // dd($group->messages());
       // $user = Auth::user();
       // $group = $user->groups()->first();
         return view('groups.index',[

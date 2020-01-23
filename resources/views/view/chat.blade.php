@@ -6,36 +6,33 @@
 @section('main')
 <div class="chat-main">
   <div class="chat-header">
-    <h2 class="chat-header__title">グループ名 ヘッダータイトル</h2>
-    <ul class="chat-header__member">
-      Members:
-      <li>{{$user->name}}</li>
-    </ul>
+    <div class="chat-header__left-box">
+      <h2 class="chat-header__left-box__title">{{$group->name}}</h2>
+      <ul class="chat-header__left-box__member">
+        Members:
+        <li>{{Auth::user()->name}}</li>
+        @foreach ($users as $user)
+        <li>{{$user->name}}</li>
+        @endforeach
+      </ul>
+    </div>
+    <div class="chat-header__right-box">
+      <div class="chat-header__right-box__back-btn">
+        <a href="{{url('groups')}}">
+          <i class="fas fa-arrow-left"></i>
+        </a>
+      </div>
+      <div class="chat-header__right-box__edit-btn">
+        <a href="{{url('groups/'.$group->id.'/edit')}}">Edit</a>
+      </div>
+    </div>
   </div>
   <div class="messages">
-    <div class="message">
-      <div class="message__upper">
-        <p class="message__upper__user">
-          taro
-        </p>
-        <p class="message__upper__date">2020/1/10</p>
-      </div>
-      <p class="message__text">hello!</p>
-    </div>
-    <div class="message">
-      <div class="message__upper">
-        <p class="message__upper__user">
-          taro
-        </p>
-        <p class="message__upper__date">2020/1/10</p>
-      </div>
-      <p class="message__text">hello!</p>
-    </div>
-    @each ('subviews.message', $messages, 'message', 'subviews.empty')
+    @each ('subviews.messages', $messages, 'message', 'subviews.empty')
   </div>
 
   <div class="form">
-    <form action="messages" method="POST">
+    <form action="messages" method="POST" enctype="multipart/form-data">
       @csrf
       <div class="input-box">
         <input class="input-box__text" type="text" name="body">

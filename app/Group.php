@@ -18,7 +18,13 @@ class Group extends Model
 
     public function showLastMessage()
     {
-      
+      $lastMessage = $this->messages()->latest()->first();
+      if (isset($lastMessage)){
+        return isset($lastMessage->body) ? $lastMessage->body : '画像が投稿されています';
+      }else {
+        return 'まだメッセージはありません';
+      }
+      return $lastMessage;
     }
 
     protected $fillable = [
