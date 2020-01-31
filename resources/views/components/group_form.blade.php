@@ -4,6 +4,15 @@
   {{-- @if (url()->current() != 'http://localhost:8000/groups/create')
   @method('PATCH')
   @endif --}}
+  @if ($errors->has('name'))
+  <div class="chat-group-form__errors">
+    <ul>
+      @foreach ($errors->get('name') as $error)
+      <li>{{ $error }}</li>
+      @endforeach
+    </ul>
+  </div>
+  @endif
   <div class="chat-group-form__field">
     <div class="chat-group-form__field--left">
       <label for="group-name" class="chat-group-form__label">グループ名</label>

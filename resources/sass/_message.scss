@@ -55,15 +55,19 @@
     height: calc(100vh - 100px - 90px);
     padding: 35px 40px 0;
     overflow: scroll;
+    .empty {
+      font-size: 24px;
+    }
     .message {
       padding-bottom: 46px;
       &__upper {
         padding-bottom: 12px;
         display: flex;
         &__user {
-          font-size: 16px;
+          font-size: 18px;
+          font-weight: bold;
           color: #333;
-          padding-right: 10px;
+          margin-right: 10px;
         }
         &__date {
           font-size: 12px;
@@ -72,7 +76,7 @@
       }
       &__bottom {
         &__text {
-          font-size: 14px;
+          font-size: 16px;
           color: #434a53;
         }
       }

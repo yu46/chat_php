@@ -1,1 +1,1 @@
-<p>No message!</p>
+<p class="empty">No message!</p>
