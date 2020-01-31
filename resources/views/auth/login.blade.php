@@ -1,73 +1,39 @@
-@extends('layouts.app')
-
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
-
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+@extends('layouts.base')
+@section('main')
+<div id="accoutn-page" class="account-page">
+  <div class="account-page__inner">
+    <div class="account-page__inner--left account-page__header">
+      <h2>Log in</h2>
+      <h5>登録しているユーザーでログイン</h5>
+      <a href="" class="btn">Sign up</a>
     </div>
+    <div class="account-page__inner--right user-form">
+      <form method="POST" action="{{ route('login') }}">
+        @csrf
+        <div class="field">
+          <div class="field-label">
+            <label for="email">Email</label>
+          </div>
+          <div class="field-input">
+            <input type="text" name="email" id="email" value="{{ old('email')}}" autofocus>
+          </div>
+        </div>
+        <div class="field">
+          <div class="field-label">
+            <label for="password">
+              Password
+              <i>(英数字８文字以上)</i>
+            </label>
+          </div>
+          <div class="field-input">
+            <input type="password" id="password" name="password">
+          </div>
+        </div>
+        <div class="actions">
+          <input type="submit" value="Log in" class="btn">
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
 @endsection
