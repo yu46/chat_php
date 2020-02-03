@@ -32,7 +32,7 @@
   </div>
 
   <div class="form">
-    <form action="messages" method="POST" enctype="multipart/form-data">
+    <form action="messages" method="POST" enctype="multipart/form-data" id="new_message">
       @csrf
       <div class="input-box">
         <input class="input-box__text" type="text" name="body">

@@ -17430,6 +17430,10 @@ a:hover {
   text-decoration: none;
 }
 
+body {
+  line-height: normal;
+}
+
 .chat-main {
   height: 100vh;
 }
@@ -17456,7 +17460,7 @@ a:hover {
 }
 
 .chat-main .chat-header__left-box__member li {
-  padding-left: 4px;
+  padding-left: 8px;
 }
 
 .chat-main .chat-header__right-box {
@@ -17498,6 +17502,10 @@ a:hover {
   overflow: scroll;
 }
 
+.chat-main .messages .empty {
+  font-size: 24px;
+}
+
 .chat-main .messages .message {
   padding-bottom: 46px;
 }
@@ -17509,9 +17517,10 @@ a:hover {
 }
 
 .chat-main .messages .message__upper__user {
-  font-size: 16px;
+  font-size: 18px;
+  font-weight: bold;
   color: #333;
-  padding-right: 10px;
+  margin-right: 10px;
 }
 
 .chat-main .messages .message__upper__date {
@@ -17520,7 +17529,7 @@ a:hover {
 }
 
 .chat-main .messages .message__bottom__text {
-  font-size: 14px;
+  font-size: 16px;
   color: #434a53;
 }
 
@@ -17590,7 +17599,8 @@ a:hover {
 }
 
 .groups__header--left {
-  font-size: 16px;
+  font-size: 20px;
+  font-weight: bold;
   line-height: 100px;
 }
 
@@ -17613,14 +17623,20 @@ a:hover {
   padding: 20px 20px 0 20px;
   background-color: #eceff1;
   height: calc(100vh - 100px);
+  overflow: scroll;
 }
 
 .groups__main .group {
   color: #333;
-  padding-bottom: 40px;
+  margin-bottom: 40px;
+}
+
+.groups__main .group:hover {
+  background-color: #fff;
 }
 
 .groups__main .group a {
+  background-color: #eceff1;
   color: inherit;
 }
 
@@ -17641,6 +17657,21 @@ a:hover {
   border: 1px solid #ddd;
   border-radius: 5px;
   box-sizing: border-box;
+}
+
+.chat-group-form h1 {
+  letter-spacing: 2px;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.chat-group-form__errors {
+  margin: 30px 0;
+  padding: 20px 40px;
+  border: 1px solid #ddd;
+  border-radius: 2px;
+  text-align: center;
 }
 
 .chat-group-form__label {
@@ -17687,6 +17718,23 @@ a:hover {
 .chat-group-form__field--right {
   float: right;
   width: 70%;
+}
+
+.chat-group-user {
+  padding: 0 15px;
+  line-height: 50px;
+  font-size: 14px;
+  border-bottom: 1px solid #ddd;
+}
+
+.chat-group-user:after {
+  content: "";
+  clear: both;
+  display: block;
+}
+
+.chat-group-user__name {
+  float: left;
 }
 
 .account-page .account-page__inner {
@@ -17775,5 +17823,17 @@ a:hover {
   margin-top: 20px;
   color: #fff;
   background-color: #38aef0;
+}
+
+.notification__notice {
+  background-color: #38aef0;
+  color: #fff;
+  text-align: center;
+}
+
+.notification__alert {
+  background-color: #f35500;
+  color: #fff;
+  text-align: center;
 }
 

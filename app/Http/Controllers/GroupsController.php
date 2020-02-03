@@ -6,22 +6,20 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Group;
 use App\User;
+use Validator;
 
 class GroupsController extends Controller
 {
     public function index()
     {
-        $group = Auth::user()->groups()->latest()->first();
-      // dd($group->messages());
-      // $user = Auth::user();
-      // $group = $user->groups()->first();
         return view('groups.index',[
           'user' => Auth::user()
         ]);
     }
 
     public function create()
-    {  
+    { 
+      
       return view('groups.create', [
         'url' => url('groups'),
         'users' => User::whereNotIn('id', [Auth::id()])->get()
@@ -30,30 +28,49 @@ class GroupsController extends Controller
 
     public function store(Request $req)
     {
-      $id = Auth::id();
+      $req->validate([
+        'name' => 'required|unique:groups,name'
+      ]);
+
+      // $id = Auth::id();
       $group = new Group();
-      $group->fill($req->except('_token'))->save();
+      $group->fill($req->except('_token'))
+      ->save();
       $group->users()->attach($req->user_ids);
-      return redirect('groups');
+      return redirect('groups')
+      ->with('notice', 'グループを作成しました');
     }
 
     public function edit($id)
     { 
       $group = Group::find($id);
+      $groupUsersIds = $group->users()->pluck('users.id')->toArray();
       return view('groups.edit', [
         'url' => url('groups/'.$group->id.'edit'),
-        'users' => User::all(),
-        'group' => $group
+        'users' => User::whereNotIn('id', [Auth::id()])->get(),
+        'group' => $group,
+        'groupUsersIds' => $groupUsersIds
       ]);
     }
 
     public function update(Request $req, $id)
     {
+      
+      $validator = Validator::make($req->all(), [
+        'name' => 'required|max:6'
+      ]);
+      if ($validator->fails()){
+        return back()
+        ->withErrors($validator)
+        ->withInput();
+      }
+
       $group = Group::find($id);
       $group->fill($req->except('_token', '_method'));
       $group->save();
-      return redirect()->action('MessagesController@index', ['group_id' => 1]);
+      $group->users()->sync($req->user_ids);
+      //fixit group_id
+      return redirect()->action('MessagesController@index', ['group_id' => $group->id])->with('notice', 'グループを編集しました');
     }
-
 
 }

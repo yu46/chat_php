@@ -5,7 +5,13 @@
     <div class="account-page__inner--left account-page__header">
       <h2>Edit Account</h2>
       <h5>アカウントの編集</h5>
-      <a class="btn" href="{{route('logout')}}">ログアウト</a>
+      <a class="btn" href="{{ route('logout') }}" onclick="event.preventDefault();
+      document.getElementById('logout-form').submit();">
+        ログアウト
+      </a>
+      <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+        @csrf
+      </form>
       <a href="{{url('groups')}}" class="btn">トップページに戻る</a>
     </div>
     <div class="account-page__inner--right">
@@ -14,7 +20,7 @@
         @method('PATCH')
         <div class="field">
           <div class="field-label">
-            <label for="user-name"></label>
+            <label for="user-name">Name</label>
           </div>
           <div class="field-input">
             <input type="text" name="name" id="user-name" value="{{$user->name}}">
@@ -22,7 +28,7 @@
         </div>
         <div class="field">
           <div class="field-label">
-            <label for="user-mail"></label>
+            <label for="user-email">Email</label>
           </div>
           <div class="field-input">
             <input type="email" naem="email" id="user-email" value="{{$user->email}}">

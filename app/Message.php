@@ -18,6 +18,8 @@ class Message extends Model
 
     protected $fillable = [
       'body',
-      'image'
+      'image',
+      'group_id',
+      'user_id'
     ];
 }
