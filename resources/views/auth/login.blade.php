@@ -5,11 +5,20 @@
     <div class="account-page__inner--left account-page__header">
       <h2>Log in</h2>
       <h5>登録しているユーザーでログイン</h5>
-      <a href="" class="btn">Sign up</a>
+      <a href="{{ route('register') }}" class="btn">Sign up</a>
     </div>
     <div class="account-page__inner--right user-form">
       <form method="POST" action="{{ route('login') }}">
         @csrf
+        @if ($errors->any())
+        <div class="field__errors">
+          <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+          </ul>
+        </div>
+        @endif
         <div class="field">
           <div class="field-label">
             <label for="email">Email</label>

@@ -17807,6 +17807,15 @@ body {
   letter-spacing: 1px;
 }
 
+.account-page .field__errors {
+  margin: 30px 0;
+  padding: 20px 40px;
+  border: 1px solid #ddd;
+  border-radius: 2px;
+  text-align: center;
+  color: #d65f4c;
+}
+
 .account-page .btn {
   display: inline-block;
   height: 50px;

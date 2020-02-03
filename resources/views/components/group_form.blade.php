@@ -1,9 +1,6 @@
 <form action="{{$url}}" method="POST" class="new-group">
   @csrf
   {{$method}}
-  {{-- @if (url()->current() != 'http://localhost:8000/groups/create')
-  @method('PATCH')
-  @endif --}}
   @if ($errors->has('name'))
   <div class="chat-group-form__errors">
     <ul>
@@ -27,12 +24,19 @@
       <label for="group-member" class="chat-group-form__label">チャットメンバーを追加</label>
     </div>
     <div class="chat-group-form__field--right">
-      <input type="checkbox" id="group-member" name="user_ids[]" value="{{Auth::id()}}"
-        checked="checked">{{Auth::user()->name}}
+      {{-- <input type="checkbox" id="aut_user" name="user_ids[]" value="{{Auth::id()}}" checked="checked"> --}}
+      {{-- {{ Form::label('auth_user', Auth::user()->name)}} --}}
+      @if (isset($users))
       @foreach ($users as $user)
-      <input type="checkbox" name="user_ids[]" value="{{ $user->id }}"
-        {{ old("user_ids") === "1"? 'checked="checked"' : '' }}>{{ $user->name }}
+      @if (isset($groupUsersIds))
+      {{ Form::checkbox('user_ids[]', $user->id, in_array($user->id, $groupUsersIds), ['id' => 'users_name']) }}
+      {{ Form::label('users_name', $user->name)}}
+      @else
+      {{ Form::checkbox('user_ids[]', $user->id, false, ['id' => 'users_name']) }}
+      {{ Form::label('users_name', $user->name)}}
+      @endif
       @endforeach
+      @endif
     </div>
   </div>
   <div class="chat-group-form__field">
@@ -40,7 +44,23 @@
       <label for="group-member" class="chat-group-form__label">チャットメンバー</label>
     </div>
     <div class="chat-group-form__field--right">
-
+      <div class="chat-group-users">
+        <div class="chat-group-user">
+          <input name="user_ids[]" type="hidden" value="{{ Auth::id()}}">
+          <p class="chat-group-user__name">
+            {{Auth::user()->name}}
+          </p>
+        </div>
+        @if (isset($group->users))
+        @foreach ($group->users as $user)
+        <div class="chat-group-user">
+          <p class="chat-group-user__name">
+            {{$user->name}}
+          </p>
+        </div>
+        @endforeach
+        @endif
+      </div>
     </div>
   </div>
   <div class="chat-group-form__field">

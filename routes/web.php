@@ -10,12 +10,14 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 
 Route::middleware(['auth'])->group(function(){
+  Route::get('/','GroupsController@index');
+
   //group
   Route::get('groups','GroupsController@index');
   Route::get('groups/create', 'GroupsController@create');

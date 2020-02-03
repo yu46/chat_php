@@ -5,7 +5,8 @@
   @component('components.group_form', [
   'url' => $url,
   'users' => $users,
-  'group' => $group
+  'group' => $group,
+  'groupUsersIds' => $groupUsersIds
   ])
   @slot('method')
   @method('PATCH')

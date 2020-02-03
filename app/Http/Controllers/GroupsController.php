@@ -31,7 +31,6 @@ class GroupsController extends Controller
       $req->validate([
         'name' => 'required|unique:groups,name'
       ]);
-
       // $id = Auth::id();
       $group = new Group();
       $group->fill($req->except('_token'))
@@ -69,7 +68,6 @@ class GroupsController extends Controller
       $group->fill($req->except('_token', '_method'));
       $group->save();
       $group->users()->sync($req->user_ids);
-      //fixit group_id
       return redirect()->action('MessagesController@index', ['group_id' => $group->id])->with('notice', 'グループを編集しました');
     }
 

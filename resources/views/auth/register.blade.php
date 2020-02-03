@@ -6,11 +6,20 @@
     <div class="account-page__inner--left account-page__header">
       <h2>Create Account</h2>
       <h5>新規アカウントの作成</h5>
-      <a href="" class="btn">Log in</a>
+      <a href="{{ route('login') }}" class="btn">Log in</a>
     </div>
     <div class="account-page__inner--right user-form">
-      <form method="POST" action="{{ route('login') }}">
+      <form method="POST" action="{{ route('register') }}">
         @csrf
+        @if ($errors->any())
+        <div class="field__errors">
+          <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+          </ul>
+        </div>
+        @endif
         <div class="field">
           <div class="field-label">
             <label for="name">Name</label>
@@ -25,6 +34,7 @@
           </div>
           <div class="field-input">
             <input type="text" name="email" id="email">
+
           </div>
         </div>
         <div class="field">
@@ -49,7 +59,7 @@
           </div>
         </div>
         <div class="actions">
-          <input type="submit" value="Log in" class="btn">
+          <input type="submit" value="Create account" class="btn">
         </div>
       </form>
     </div>
