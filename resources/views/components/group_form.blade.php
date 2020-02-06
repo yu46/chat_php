@@ -24,8 +24,6 @@
       <label for="group-member" class="chat-group-form__label">チャットメンバーを追加</label>
     </div>
     <div class="chat-group-form__field--right">
-      {{-- <input type="checkbox" id="aut_user" name="user_ids[]" value="{{Auth::id()}}" checked="checked"> --}}
-      {{-- {{ Form::label('auth_user', Auth::user()->name)}} --}}
       @if (isset($users))
       @foreach ($users as $user)
       @if (isset($groupUsersIds))

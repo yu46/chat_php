@@ -22,7 +22,7 @@ class MessagesController extends Controller
       'users' => $group->users()->whereNotIn('users.id', [Auth::id()])->get(),
       'group' => $group
     ];
-    return view('view.chat', $data);
+    return view('messages.index', $data);
   }
 
   public function store(Request $req, $groupId)

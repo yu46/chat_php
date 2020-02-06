@@ -31,7 +31,6 @@ class GroupsController extends Controller
       $req->validate([
         'name' => 'required|unique:groups,name'
       ]);
-      // $id = Auth::id();
       $group = new Group();
       $group->fill($req->except('_token'))
       ->save();
