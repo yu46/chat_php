@@ -44,6 +44,7 @@ class MessagesController extends Controller
         'user_id' => Auth::id(),
         'group_id' => $groupId,
         ]);
+        
       if ($req->file('image')){
         //画像のアップロード通常
         // $file = $req->file('image');
@@ -65,7 +66,7 @@ class MessagesController extends Controller
         
         $image_base64 = base64_encode($image);
         $message->image = $image_base64;
-
+        \Debugbar::info($message->image);
       }
     
       $message->save();
