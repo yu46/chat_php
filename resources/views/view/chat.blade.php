@@ -28,7 +28,7 @@
     </div>
   </div>
   <div class="messages">
-    @each ('subviews.messages', $messages, 'message', 'subviews.empty')
+    @each ('subviews.messages', $messages, 'message')
   </div>
 
   <div class="form">

@@ -69015,9 +69015,14 @@ if (document.getElementById('example')) {
 
 $(function () {
   function buildHTML(data) {
-    var image = data.message.image ? data.message.image : "";
+    //64エンコード用
+    var imageBase64 = data.message.image ? "data:image/png;base64, ".concat(data.message.image) : ""; //通常用
+    // const image = data.message.image
+    //   ? `/storage/images/${data.message.image}`
+    //   : "";
+
     var body = data.message.body ? data.message.body : "";
-    var html = "<div class=\"message\" data-message-id=\"".concat(data.message.id, "\">\n          <div class=\"message__upper\">\n            <p class=\"message__upper__user\">\n              ").concat(data.user.name, "\n            </p>\n            <p class=\"message__upper__date\">\n              ").concat(data.message.created_at, "\n            </p>\n          </div>\n          <div class=\"message__bottom\">\n            <p class=\"message__bottom__text\">\n              ").concat(body, "\n            </p>\n            <img src=\"/storage/images/").concat(image, "\" >\n          </div>\n        </div>");
+    var html = "<div class=\"message\" data-message-id=\"".concat(data.message.id, "\">\n          <div class=\"message__upper\">\n            <p class=\"message__upper__user\">\n              ").concat(data.user.name, "\n            </p>\n            <p class=\"message__upper__date\">\n              ").concat(data.message.created_at, "\n            </p>\n          </div>\n          <div class=\"message__bottom\">\n            <p class=\"message__bottom__text\">\n              ").concat(body, "\n            </p>\n            <img src=\"").concat(imageBase64, "\" >\n          </div>\n        </div>");
     return html;
   } //formの送信ボタンのクリックで発火する
   //メッセージのスクロール機能
@@ -69042,7 +69047,6 @@ $(function () {
       var messagesClass = $(".messages");
       messagesClass.append(html);
       $("form")[0].reset();
-      console.log(data.message, data.message.image);
       var position = $(".messages")[0].scrollHeight;
       $(".messages").animate({
         scrollTop: position

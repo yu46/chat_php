@@ -44,18 +44,28 @@ class MessagesController extends Controller
         'user_id' => Auth::id(),
         'group_id' => $groupId,
         ]);
-
       if ($req->file('image')){
-        //画像のアップロード
+        //画像のアップロード通常
+        // $file = $req->file('image');
+        // $filename = $file->hashName();
+        // $image = Image::make($file)
+        // ->resize(null, 200, function($constraint){
+        //   $constraint->aspectRatio();
+        // })
+        // ->save(public_path().'/storage/images/'.$filename);
+        // $message->image = $filename;
+        
+
+        //base64エンコード herokuでの画像保存対策
         $file = $req->file('image');
-        $filename = $file->hashName();
         $image = Image::make($file)
         ->resize(null, 200, function($constraint){
           $constraint->aspectRatio();
-        })
-        ->save(public_path().'/storage/images/'.$filename);
-        $message->image = $filename;
-        // $message->image = basename($filename);
+        })->stream('jpg',90);
+        
+        $image_base64 = base64_encode($image);
+        $message->image = $image_base64;
+
       }
     
       $message->save();
@@ -64,7 +74,6 @@ class MessagesController extends Controller
         'user' => Auth::user()
       ];
       return response()->json($json);
-      // return back();
   }
 
 }

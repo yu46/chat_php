@@ -14,8 +14,11 @@
     </p>
     @endif
 
-    @if ($message->image)
-    <img src="{{ asset('storage/images/' . $message->image) }}" />
+    @if (isset($message->image))
+    {{-- 通常用 --}}
+    {{-- <img src="{{ asset('storage/images/' . $message->image) }}" /> --}}
+    {{-- 64エンコード用 --}}
+    <img src="data:image/png;base64,{{ $message->image }}">
     @endif
   </div>
 

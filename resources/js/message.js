@@ -1,6 +1,14 @@
 $(function() {
   function buildHTML(data) {
-    const image = data.message.image ? data.message.image : "";
+    //64エンコード用
+    const imageBase64 = data.message.image
+      ? `data:image/png;base64, ${data.message.image}`
+      : "";
+
+    //通常用
+    // const image = data.message.image
+    //   ? `/storage/images/${data.message.image}`
+    //   : "";
     const body = data.message.body ? data.message.body : "";
     const html = `<div class="message" data-message-id="${data.message.id}">
           <div class="message__upper">
@@ -15,7 +23,7 @@ $(function() {
             <p class="message__bottom__text">
               ${body}
             </p>
-            <img src="/storage/images/${image}" >
+            <img src="${imageBase64}" >
           </div>
         </div>`;
     return html;
@@ -42,7 +50,6 @@ $(function() {
         const messagesClass = $(".messages");
         messagesClass.append(html);
         $("form")[0].reset();
-        console.log(data.message, data.message.image);
         const position = $(".messages")[0].scrollHeight;
         $(".messages").animate({ scrollTop: position }, "slow", "swing");
       })
