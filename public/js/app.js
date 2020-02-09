@@ -69014,15 +69014,15 @@ if (document.getElementById('example')) {
 /***/ (function(module, exports) {
 
 $(function () {
-  function buildHTML(data) {
+  function buildHTML(message, user) {
     //64エンコード用
-    var imageBase64 = data.message.image ? "data:image/png;base64, ".concat(data.message.image) : ""; //通常用
+    var imageBase64 = message.image ? "data:image/png;base64, ".concat(message.image) : ""; //通常用
     // const image = data.message.image
     //   ? `/storage/images/${data.message.image}`
     //   : "";
 
-    var body = data.message.body ? data.message.body : "";
-    var html = "<div class=\"message\" data-message-id=\"".concat(data.message.id, "\">\n          <div class=\"message__upper\">\n            <p class=\"message__upper__user\">\n              ").concat(data.user.name, "\n            </p>\n            <p class=\"message__upper__date\">\n              ").concat(data.message.created_at, "\n            </p>\n          </div>\n          <div class=\"message__bottom\">\n            <p class=\"message__bottom__text\">\n              ").concat(body, "\n            </p>\n            <img src=\"").concat(imageBase64, "\" >\n          </div>\n        </div>");
+    var body = message.body ? message.body : "";
+    var html = "<div class=\"message\" data-message-id=\"".concat(message.id, "\">\n          <div class=\"message__upper\">\n            <p class=\"message__upper__user\">\n              ").concat(message.user_name, "\n            </p>\n            <p class=\"message__upper__date\">\n              ").concat(message.created_at, "\n            </p>\n          </div>\n          <div class=\"message__bottom\">\n            <p class=\"message__bottom__text\">\n              ").concat(body, "\n            </p>\n            <img src=\"").concat(imageBase64, "\" >\n          </div>\n        </div>");
     return html;
   } //formの送信ボタンのクリックで発火する
   //メッセージのスクロール機能
@@ -69043,7 +69043,7 @@ $(function () {
       processData: false,
       contentType: false
     }).done(function (data) {
-      var html = buildHTML(data);
+      var html = buildHTML(data.message, data.user);
       var messagesClass = $(".messages");
       messagesClass.append(html);
       $("form")[0].reset();
@@ -69055,36 +69055,35 @@ $(function () {
       alert("error");
     }).always(function () {
       $(".submit__btn").attr("disabled", false);
-    }); // e.supperPropagation();
-  }); // let reloadMessages = function() {
-  //   let last_message_id = $(".message")[0]
-  //     ? $(".message:last").data("message-id")
-  //     : 0;
-  //   $.ajax({
-  //     url: "api/messages",
-  //     type: "get",
-  //     dataType: "json",
-  //     data: { id: last_message_id }
-  //   })
-  //     .done(function(messages) {
-  //       let insertHTML = "";
-  //       messages.forEach(function(message) {
-  //         insertHTML = buildHTML(message);
-  //         $(".chat__messages").append(insertHTML);
-  //         $(".chat__messages").animate(
-  //           { scrollupper: $(".chat__messages")[0].scrollHeight },
-  //           "slow",
-  //           "swing"
-  //         );
-  //       });
-  //     })
-  //     .fail(function() {
-  //       alert("更新に失敗しました。");
-  //     });
-  // };
-  // if (window.location.href.match(/\groups\/[0-9]+\/messages/)) {
-  //   setInterval(reloadMessages, 3000);
-  // };
+    });
+  }); //メッセージの自動更新機能の定義
+
+  var reloadMessages = function reloadMessages() {
+    var last_message_id = $(".message")[0] ? $(".message:last").data("message-id") : 0;
+    $.ajax({
+      url: "api/messages",
+      type: "get",
+      dataType: "json",
+      data: {
+        id: last_message_id
+      }
+    }).done(function (data) {
+      var insertHTML = "";
+      data.messages.forEach(function (message) {
+        insertHTML = buildHTML(message, data.user);
+        $(".messages").append(insertHTML);
+        $(".messages").animate({
+          scrollTop: $(".messages")[0].scrollHeight
+        }, "slow", "swing");
+      });
+    }).fail(function () {
+      alert("更新に失敗しました。");
+    });
+  };
+
+  if (window.location.href.match(/\groups\/[0-9]+\/messages/)) {
+    setInterval(reloadMessages, 5000);
+  }
 });
 
 /***/ }),

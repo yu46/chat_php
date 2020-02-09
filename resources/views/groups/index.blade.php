@@ -6,8 +6,9 @@
       {{$user->name}}
     </div>
     <div class="groups__header--right">
-      <a href="{{url('groups/create')}}">
+      <a class="create-group" href="{{url('groups/create')}}">
         <i class="fas fa-edit"></i>
+        <p class="info">Create Group</p>
       </a>
       <a href="{{ url('user/'.$user->id.'/edit')}}">
         <i class="fas fa-cog"></i>

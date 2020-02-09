@@ -1,4 +1,4 @@
-<div class="message">
+<div class="message" data-message-id="{{$message->id}}">
   <div class="message__upper">
     <p class="message__upper__user">
       {{$message->user->name}}
