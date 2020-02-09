@@ -46,7 +46,7 @@ class GroupsController extends Controller
       $groupUsersExcludeAuthUser = $group->users()->whereNotIn('users.id', [Auth::id()])->get();
 
       return view('groups.edit', [
-        'url' => url('groups/'.$group->id.'edit'),
+        'url' => url('groups/'.$group->id),
         'users' => User::whereNotIn('id', [Auth::id()])->get(),
         'group' => $group,
         'groupUsersIds' => $groupUsersIds,
