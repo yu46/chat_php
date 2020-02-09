@@ -49,11 +49,11 @@
             {{Auth::user()->name}}
           </p>
         </div>
-        @if (isset($group->users))
-        @foreach ($group->users as $user)
+        @if (isset($groupUsersExcludeAuthUser))
+        @foreach ($groupUsersExcludeAuthUser as $user)
         <div class="chat-group-user">
           <p class="chat-group-user__name">
-            {{$user->name}}
+            {{$user['name']}}
           </p>
         </div>
         @endforeach

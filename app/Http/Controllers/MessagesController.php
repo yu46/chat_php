@@ -57,7 +57,8 @@ class MessagesController extends Controller
         // $message->image = $filename;
         
 
-        //base64エンコード herokuでの画像保存対策
+        //base64エンコード 
+        //herokuでの画像保存対策
         $file = $req->file('image');
         $image = Image::make($file)
         ->resize(null, 200, function($constraint){
@@ -66,13 +67,12 @@ class MessagesController extends Controller
         
         $image_base64 = base64_encode($image);
         $message->image = $image_base64;
-        \Debugbar::info($message->image);
       }
     
       $message->save();
+      $message['user_name'] = $message->user->name;
       $json = [
-        'message' => $message,
-        'user' => Auth::user()
+        'message' => $message
       ];
       return response()->json($json);
   }

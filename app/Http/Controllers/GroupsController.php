@@ -43,11 +43,14 @@ class GroupsController extends Controller
     { 
       $group = Group::find($id);
       $groupUsersIds = $group->users()->pluck('users.id')->toArray();
+      $groupUsersExcludeAuthUser = $group->users()->whereNotIn('users.id', [Auth::id()])->get();
+
       return view('groups.edit', [
         'url' => url('groups/'.$group->id.'edit'),
         'users' => User::whereNotIn('id', [Auth::id()])->get(),
         'group' => $group,
-        'groupUsersIds' => $groupUsersIds
+        'groupUsersIds' => $groupUsersIds,
+        'groupUsersExcludeAuthUser' => $groupUsersExcludeAuthUser
       ]);
     }
 
@@ -55,7 +58,7 @@ class GroupsController extends Controller
     {
       
       $validator = Validator::make($req->all(), [
-        'name' => 'required|max:6'
+        'name' => 'required'
       ]);
       if ($validator->fails()){
         return back()
