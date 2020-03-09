@@ -1,21 +1,29 @@
 $(function() {
-  function buildHTML(data) {
-    const image = data.message.image ? data.message.image : "";
-    const body = data.message.body ? data.message.body : "";
-    const html = `<div class="message" data-message-id="${data.message.id}">
+  function buildHTML(message, user) {
+    //64エンコード用
+    const imageBase64 = message.image
+      ? `data:image/png;base64, ${message.image}`
+      : "";
+
+    //通常用
+    // const image = data.message.image
+    //   ? `/storage/images/${data.message.image}`
+    //   : "";
+    const body = message.body ? message.body : "";
+    const html = `<div class="message" data-message-id="${message.id}">
           <div class="message__upper">
             <p class="message__upper__user">
-              ${data.user.name}
+              ${message.user_name}
             </p>
             <p class="message__upper__date">
-              ${data.message.created_at}
+              ${message.created_at}
             </p>
           </div>
           <div class="message__bottom">
             <p class="message__bottom__text">
               ${body}
             </p>
-            <img src="/storage/images/${image}" >
+            <img src="${imageBase64}" >
           </div>
         </div>`;
     return html;
@@ -38,11 +46,10 @@ $(function() {
       contentType: false
     })
       .done(function(data) {
-        const html = buildHTML(data);
+        const html = buildHTML(data.message, data.user);
         const messagesClass = $(".messages");
         messagesClass.append(html);
         $("form")[0].reset();
-        console.log(data.message, data.message.image);
         const position = $(".messages")[0].scrollHeight;
         $(".messages").animate({ scrollTop: position }, "slow", "swing");
       })
@@ -52,36 +59,36 @@ $(function() {
       .always(function() {
         $(".submit__btn").attr("disabled", false);
       });
-    // e.supperPropagation();
   });
 
-  // let reloadMessages = function() {
-  //   let last_message_id = $(".message")[0]
-  //     ? $(".message:last").data("message-id")
-  //     : 0;
-  //   $.ajax({
-  //     url: "api/messages",
-  //     type: "get",
-  //     dataType: "json",
-  //     data: { id: last_message_id }
-  //   })
-  //     .done(function(messages) {
-  //       let insertHTML = "";
-  //       messages.forEach(function(message) {
-  //         insertHTML = buildHTML(message);
-  //         $(".chat__messages").append(insertHTML);
-  //         $(".chat__messages").animate(
-  //           { scrollupper: $(".chat__messages")[0].scrollHeight },
-  //           "slow",
-  //           "swing"
-  //         );
-  //       });
-  //     })
-  //     .fail(function() {
-  //       alert("更新に失敗しました。");
-  //     });
-  // };
-  // if (window.location.href.match(/\groups\/[0-9]+\/messages/)) {
-  //   setInterval(reloadMessages, 3000);
-  // };
+  //メッセージの自動更新機能の定義
+  const reloadMessages = function() {
+    const last_message_id = $(".message")[0]
+      ? $(".message:last").data("message-id")
+      : 0;
+    $.ajax({
+      url: "api/messages",
+      type: "get",
+      dataType: "json",
+      data: { id: last_message_id }
+    })
+      .done(function(data) {
+        let insertHTML = "";
+        data.messages.forEach(function(message) {
+          insertHTML = buildHTML(message, data.user);
+          $(".messages").append(insertHTML);
+          $(".messages").animate(
+            { scrollTop: $(".messages")[0].scrollHeight },
+            "slow",
+            "swing"
+          );
+        });
+      })
+      .fail(function() {
+        alert("更新に失敗しました。");
+      });
+  };
+  if (window.location.href.match(/\groups\/[0-9]+\/messages/)) {
+    setInterval(reloadMessages, 5000);
+  }
 });

@@ -1,4 +1,4 @@
-<div class="message">
+<div class="message" data-message-id="{{$message->id}}">
   <div class="message__upper">
     <p class="message__upper__user">
       {{$message->user->name}}
@@ -14,8 +14,11 @@
     </p>
     @endif
 
-    @if ($message->image)
-    <img src="{{ asset('storage/images/' . $message->image) }}" />
+    @if (isset($message->image))
+    {{-- 通常用 --}}
+    {{-- <img src="{{ asset('storage/images/' . $message->image) }}" /> --}}
+    {{-- 64エンコード用 --}}
+    <img src="data:image/png;base64,{{ $message->image }}">
     @endif
   </div>
 

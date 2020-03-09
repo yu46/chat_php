@@ -6,7 +6,8 @@
   'url' => $url,
   'users' => $users,
   'group' => $group,
-  'groupUsersIds' => $groupUsersIds
+  'groupUsersIds' => $groupUsersIds,
+  'groupUsersExcludeAuthUser' => $groupUsersExcludeAuthUser
   ])
   @slot('method')
   @method('PATCH')
